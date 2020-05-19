@@ -42,7 +42,8 @@ RUN apk add --update \
     && apk add docker-compose \
     && apk add docker-cli \
     && rc-update add docker boot \
-    && dockerd \
+    && service docker start \
+    && service docker status \
     && apk add git \
     && apk update && apk add --virtual build-dependencies build-base ruby-dev \
     && gem install bundler \
