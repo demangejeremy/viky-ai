@@ -1,0 +1,23 @@
+version: "3"
+services:
+    docker:
+        image: docker:dind
+        privileged: yes
+        volumes:
+            - certs:/certs/client
+        ports:
+            - 7302:2376
+    viky-app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        environment:
+            DOCKER_HOST: tcp://docker:2376
+        depends_on:
+            - docker
+        ports:
+            - "3000:3000"
+        volumes:
+            - certs:/certs/client
+volumes:
+    certs:
